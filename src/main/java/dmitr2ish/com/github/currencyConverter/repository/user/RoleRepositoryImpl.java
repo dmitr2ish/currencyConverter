@@ -1,4 +1,4 @@
-package dmitr2ish.com.github.currencyConverter.repository;
+package dmitr2ish.com.github.currencyConverter.repository.user;
 
 import dmitr2ish.com.github.currencyConverter.entity.user.Role;
 import org.springframework.beans.factory.annotation.Autowired;

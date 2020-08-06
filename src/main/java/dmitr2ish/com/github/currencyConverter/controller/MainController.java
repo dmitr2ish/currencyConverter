@@ -2,8 +2,8 @@ package dmitr2ish.com.github.currencyConverter.controller;
 
 import dmitr2ish.com.github.currencyConverter.entity.user.Role;
 import dmitr2ish.com.github.currencyConverter.entity.user.User;
-import dmitr2ish.com.github.currencyConverter.service.RoleService;
-import dmitr2ish.com.github.currencyConverter.service.UserService;
+import dmitr2ish.com.github.currencyConverter.service.user.RoleService;
+import dmitr2ish.com.github.currencyConverter.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

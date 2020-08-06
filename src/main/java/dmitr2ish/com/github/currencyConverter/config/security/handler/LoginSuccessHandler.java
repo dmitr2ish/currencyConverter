@@ -35,7 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         }
 
         if (adminflag) {
-            httpServletResponse.sendRedirect("/admin/");
+            httpServletResponse.sendRedirect("/admin/rest/currencies");
         } else if (userflag) {
             httpServletResponse.sendRedirect("/user");
         } else {

@@ -1,7 +1,7 @@
 package dmitr2ish.com.github.currencyConverter.service.security;
 
 import dmitr2ish.com.github.currencyConverter.entity.user.User;
-import dmitr2ish.com.github.currencyConverter.repository.UserRepository;
+import dmitr2ish.com.github.currencyConverter.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,10 +1,10 @@
-package dmitr2ish.com.github.currencyConverter.repository;
+package dmitr2ish.com.github.currencyConverter.service.user;
 
 import dmitr2ish.com.github.currencyConverter.entity.user.User;
 
 import java.util.List;
 
-public interface UserRepository {
+public interface UserService {
     void addUser(User user);
 
     void update(User user);

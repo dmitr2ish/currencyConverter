@@ -1,7 +1,9 @@
 package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Date;
+
 
 @Entity
 @Table(name = "cc_curse")

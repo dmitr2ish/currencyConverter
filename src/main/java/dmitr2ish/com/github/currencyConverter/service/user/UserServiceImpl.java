@@ -1,14 +1,14 @@
-package dmitr2ish.com.github.currencyConverter.service;
+package dmitr2ish.com.github.currencyConverter.service.user;
 
 import dmitr2ish.com.github.currencyConverter.entity.user.Role;
 import dmitr2ish.com.github.currencyConverter.entity.user.User;
-import dmitr2ish.com.github.currencyConverter.repository.RoleRepository;
-import dmitr2ish.com.github.currencyConverter.repository.UserRepository;
+import dmitr2ish.com.github.currencyConverter.repository.user.RoleRepository;
+import dmitr2ish.com.github.currencyConverter.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
