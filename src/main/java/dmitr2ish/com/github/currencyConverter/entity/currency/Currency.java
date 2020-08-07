@@ -3,10 +3,9 @@ package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "cc_currency")
@@ -25,16 +24,20 @@ public class Currency {
 
     private BigDecimal value;
 
-    public Currency(String id, Long numCode, String charCode, Integer nominal, String name, BigDecimal value) {
+    @ManyToOne
+    private Course course;
+
+    public Currency() {
+    }
+
+    public Currency(String id, Long numCode, String charCode, Integer nominal, String name, BigDecimal value, Course course) {
         this.id = id;
         this.numCode = numCode;
         this.charCode = charCode;
         this.nominal = nominal;
         this.name = name;
         this.value = value;
-    }
-
-    public Currency() {
+        this.course = course;
     }
 
     public String getId() {
@@ -83,5 +86,13 @@ public class Currency {
 
     public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

@@ -4,16 +4,18 @@ import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.lang.model.element.Name;
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public class CurrensyRepositroyImpl implements CurrensyRepositroy {
+public class CurrencyRepositoryImpl implements CurrencyRepository {
 
     final private EntityManager entityManager;
 
     @Autowired
-    public CurrensyRepositroyImpl(EntityManager entityManager) {
+    public CurrencyRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -36,6 +38,22 @@ public class CurrensyRepositroyImpl implements CurrensyRepositroy {
     @SuppressWarnings("unchecked")
     public List<Currency> getAllCurrencies() {
         return entityManager.createQuery("select c from Currency c").getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Currency> getAllCurrenciesByCourseDate(Date date) {
+        return entityManager.createQuery("select  c from Currency  c where c.course.date = :date")
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Currency> getAllCurrenciesByCourseName(Name name) {
+        return entityManager.createQuery("select  c from Currency  c where c.course.name = :name")
+                .setParameter("name", name)
+                .getResultList();
     }
 
     @Override

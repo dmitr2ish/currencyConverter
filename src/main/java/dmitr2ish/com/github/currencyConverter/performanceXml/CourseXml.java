@@ -1,14 +1,10 @@
 package dmitr2ish.com.github.currencyConverter.performanceXml;
 
-import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
-
 import javax.xml.bind.annotation.*;
-import java.util.Date;
-import java.util.List;
 
 @XmlRootElement(name = "ValCurs")
 @XmlAccessorType(XmlAccessType.NONE)
-public class ValCurseXml {
+public class CourseXml {
 
     @XmlAttribute(name="name")
     private String name;
@@ -16,12 +12,12 @@ public class ValCurseXml {
     @XmlAttribute(name="Date")
     private String date;
 
-    public ValCurseXml(String name, String date) {
+    public CourseXml(String name, String date) {
         this.name = name;
         this.date = date;
     }
 
-    public ValCurseXml() {
+    public CourseXml() {
     }
 
     public String getName() {

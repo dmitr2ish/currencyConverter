@@ -1,6 +1,6 @@
 package dmitr2ish.com.github.currencyConverter.repository.currensy;
 
-import dmitr2ish.com.github.currencyConverter.entity.currency.ValCurse;
+import dmitr2ish.com.github.currencyConverter.entity.currency.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -9,39 +9,39 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class ValCurseRepositoryImpl implements ValCurseRepository {
+public class CourseRepositoryImpl implements CourseRepository {
 
     final private EntityManager entityManager;
 
     @Autowired
-    public ValCurseRepositoryImpl(EntityManager entityManager) {
+    public CourseRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
 
     @Override
-    public void add(ValCurse curse) {
+    public void add(Course curse) {
         entityManager.persist(curse);
     }
 
     @Override
-    public ValCurse getByName(String name) {
-        return (ValCurse) entityManager.createQuery("select c from ValCurse c where c.name = :name")
+    public Course getByName(String name) {
+        return (Course) entityManager.createQuery("select c from Course c where c.name = :name")
                 .setParameter("name", name)
                 .getSingleResult();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<ValCurse> getByDate(Date date) {
-        return entityManager.createQuery("select c from ValCurse c where c.date = :date")
+    public List<Course> getByDate(Date date) {
+        return entityManager.createQuery("select c from Course c where c.date = :date")
                 .setParameter("date", date)
                 .getResultList();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<ValCurse> getAll() {
-        return entityManager.createQuery("select  c from ValCurse c").getResultList();
+    public List<Course> getAll() {
+        return entityManager.createQuery("select  c from Course c").getResultList();
     }
 }

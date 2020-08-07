@@ -1,14 +1,13 @@
 package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Date;
 import java.util.List;
 
 
 @Entity
-@Table(name = "cc_curse")
-public class ValCurse {
+@Table(name = "cc_course")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +19,13 @@ public class ValCurse {
     @OneToMany
     private List<Currency> currencyList;
 
-    public ValCurse(String name, Date date, List<Currency> currencyList) {
+    public Course(String name, Date date, List<Currency> currencyList) {
         this.name = name;
         this.date = date;
         this.currencyList = currencyList;
     }
 
-    public ValCurse() {
+    public Course() {
     }
 
     public Long getId() {
