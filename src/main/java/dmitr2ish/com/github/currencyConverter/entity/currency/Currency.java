@@ -25,17 +25,13 @@ public class Currency {
 
     private BigDecimal value;
 
-    @OneToMany
-    private List<ValCurse> curse;
-
-    public Currency(String id, Long numCode, String charCode, Integer nominal, String name, BigDecimal value, List<ValCurse> curse) {
+    public Currency(String id, Long numCode, String charCode, Integer nominal, String name, BigDecimal value) {
         this.id = id;
         this.numCode = numCode;
         this.charCode = charCode;
         this.nominal = nominal;
         this.name = name;
         this.value = value;
-        this.curse = curse;
     }
 
     public Currency() {
@@ -87,13 +83,5 @@ public class Currency {
 
     public void setValue(BigDecimal value) {
         this.value = value;
-    }
-
-    public List<ValCurse> getCurse() {
-        return curse;
-    }
-
-    public void setCurse(List<ValCurse> curse) {
-        this.curse = curse;
     }
 }

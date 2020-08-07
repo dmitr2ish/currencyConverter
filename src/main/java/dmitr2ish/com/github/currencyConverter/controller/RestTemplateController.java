@@ -3,6 +3,8 @@ package dmitr2ish.com.github.currencyConverter.controller;
 import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 import dmitr2ish.com.github.currencyConverter.performanceXml.CurrencyXml;
 import dmitr2ish.com.github.currencyConverter.performanceXml.ValCurseXml;
+import dmitr2ish.com.github.currencyConverter.service.currencyXml.CurrensyXmlService;
+import dmitr2ish.com.github.currencyConverter.service.currencyXml.ValCurseXmlService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,32 +22,34 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
 @RequestMapping("/admin")
 public class RestTemplateController {
 
-    private final RestTemplate restTemplate;
+    final private  RestTemplate restTemplate;
+    final private  CurrensyXmlService currensyXmlService;
+    final private ValCurseXmlService valCurseXmlService;
 
-    @Autowired
-    public RestTemplateController(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     private final String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
 
+    @Autowired
+    public RestTemplateController(RestTemplate restTemplate, CurrensyXmlService currensyXmlService, ValCurseXmlService valCurseXmlService) {
+        this.restTemplate = restTemplate;
+        this.currensyXmlService = currensyXmlService;
+        this.valCurseXmlService = valCurseXmlService;
+    }
+
     @GetMapping(value = "/rest/currencies")
     public void getCurrencies() throws IOException {
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        ValCurseXml valCurseXml = restTemplate.getForObject(URL, ValCurseXml.class);
-//        System.out.println("ID: " + valCurseXml.getName());
-//        System.out.println("Company: " + valCurseXml.getDate());
+        RestTemplate restTemplate = new RestTemplate();
+
+
+        ValCurseXml valCurseXml = restTemplate.getForObject(URL, ValCurseXml.class);
+
 
         String url = "http://www.cbr.ru/scripts/XML_daily.asp";
         Document page = Jsoup.connect(url).get();
@@ -63,7 +67,9 @@ public class RestTemplateController {
 
             currencyXmlList.add(currencyXml);
         }
-//        Map<String, List<CurrencyXml>>
+
+
+
     }
 
     public BigDecimal bigDecimalConvert(String number) {

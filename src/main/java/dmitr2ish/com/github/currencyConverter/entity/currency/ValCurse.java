@@ -3,6 +3,7 @@ package dmitr2ish.com.github.currencyConverter.entity.currency;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -16,9 +17,13 @@ public class ValCurse {
 
     private Date date;
 
-    public ValCurse(String name, Date date) {
+    @OneToMany
+    private List<Currency> currencyList;
+
+    public ValCurse(String name, Date date, List<Currency> currencyList) {
         this.name = name;
         this.date = date;
+        this.currencyList = currencyList;
     }
 
     public ValCurse() {
@@ -46,5 +51,13 @@ public class ValCurse {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<Currency> getCurrencyList() {
+        return currencyList;
+    }
+
+    public void setCurrencyList(List<Currency> currencyList) {
+        this.currencyList = currencyList;
     }
 }

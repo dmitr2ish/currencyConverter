@@ -2,20 +2,27 @@ package dmitr2ish.com.github.currencyConverter.service.currency;
 
 import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 import dmitr2ish.com.github.currencyConverter.entity.currency.ValCurse;
+import dmitr2ish.com.github.currencyConverter.performanceXml.CurrencyXml;
+import dmitr2ish.com.github.currencyConverter.performanceXml.ValCurseXml;
 import dmitr2ish.com.github.currencyConverter.repository.currensy.CurrensyRepositroy;
 import dmitr2ish.com.github.currencyConverter.repository.currensy.ValCurseRepository;
+import dmitr2ish.com.github.currencyConverter.service.currencyXml.CurrensyXmlService;
+import dmitr2ish.com.github.currencyConverter.service.currencyXml.ValCurseXmlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @Transactional
-public class CurrencyServiceImplement implements CurrensyService, ValCurseService {
+public class CurrencyServiceImplement implements CurrensyService, ValCurseService, CurrensyXmlService, ValCurseXmlService {
     final private CurrensyRepositroy currensyRepositroy;
     final private ValCurseRepository valCurseRepository;
+
 
     @Autowired
     public CurrencyServiceImplement(CurrensyRepositroy currensyRepositroy, ValCurseRepository valCurseRepository) {
@@ -71,5 +78,31 @@ public class CurrencyServiceImplement implements CurrensyService, ValCurseServic
     @Override
     public void add(ValCurse curse) {
         valCurseRepository.add(curse);
+    }
+
+    @Override
+    public void saveCurrensy(CurrencyXml currensyXml) {
+        Currency currency = new Currency();
+        currency.setId(currensyXml.getId());
+        currency.setCharCode(currensyXml.getCharCode());
+        currency.setName(currensyXml.getName());
+        currency.setNumCode(currensyXml.getNumCode());
+        currency.setNominal(currensyXml.getNominal());
+        currency.setValue(currensyXml.getValue());
+        currensyRepositroy.addCurrency(currency);
+
+    }
+
+    @Override
+    public void saveCurse(ValCurseXml curseXml) {
+        ValCurse curse = new ValCurse();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            curse.setDate(format.parse(curseXml.getDate()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        curse.setName(curseXml.getName());
+        curse.setCurrencyList(currensyRepositroy.getAllCurrencies());
     }
 }

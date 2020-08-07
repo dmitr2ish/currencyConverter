@@ -23,8 +23,8 @@ public class CurrensyRepositroyImpl implements CurrensyRepositroy {
     }
 
     @Override
-    public void update(Currency curr) {
-        entityManager.merge(curr);
+    public Currency update(Currency curr) {
+        return entityManager.merge(curr);
     }
 
     @Override

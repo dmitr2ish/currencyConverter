@@ -7,7 +7,7 @@ import java.util.List;
 public interface CurrensyRepositroy {
     void addCurrency(Currency curr);
 
-    void update(Currency curr);
+    Currency update(Currency curr);
 
     Currency getById(Long id);
 
