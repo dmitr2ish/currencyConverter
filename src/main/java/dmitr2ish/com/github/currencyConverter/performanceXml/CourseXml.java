@@ -1,5 +1,8 @@
 package dmitr2ish.com.github.currencyConverter.performanceXml;
 
+import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
+
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "ValCurs")

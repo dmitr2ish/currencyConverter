@@ -91,14 +91,17 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
     }
 
     @Override
-    public void saveCourse(CourseXml curseXml, List<CurrencyXml> currencyXmlList) {
+    public boolean isExistByDate(Date date) {
+        return courseRepository.isExistByDate(date);
+    }
+
+    @Override
+    public void saveCourse(CourseXml curseXml, List<CurrencyXml> currencyXmlList) throws ParseException {
         Course curse = new Course();    //currencyList null; id null; name null; date null;
+
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            curse.setDate(format.parse(curseXml.getDate()));    //currencyList null; id null; name null; date have;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        curse.setDate(format.parse(curseXml.getDate()));    //currencyList null; id null; name null; date have;
+
         curse.setName(curseXml.getName());  //currencyList null; id null; name have; date have;
         courseRepository.add(curse);    //currencyList null; id have; name have; date have;
 

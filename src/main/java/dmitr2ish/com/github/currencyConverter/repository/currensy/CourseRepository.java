@@ -14,4 +14,6 @@ public interface CourseRepository {
     List<Course> getAll();
 
     void add(Course curse);
+
+    boolean isExistByDate(Date date);
 }

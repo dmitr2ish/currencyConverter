@@ -25,6 +25,14 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
+    public boolean isExistByDate(Date date) {
+        return !entityManager.createQuery("select count(c) from Course c where c.date = :date")
+                .setParameter("date", date)
+                .getSingleResult()
+                .equals(0L);
+    }
+
+    @Override
     public Course getByName(String name) {
         return (Course) entityManager.createQuery("select c from Course c where c.name = :name")
                 .setParameter("name", name)
