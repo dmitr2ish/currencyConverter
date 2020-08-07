@@ -1,13 +1,11 @@
-package dmitr2ish.com.github.currencyConverter.repository.currensy;
+package dmitr2ish.com.github.currencyConverter.service.currency;
 
-import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 import dmitr2ish.com.github.currencyConverter.entity.currency.History;
 
-import javax.lang.model.element.Name;
 import java.util.Date;
 import java.util.List;
 
-public interface HistoryRepository {
+public interface HistoryService {
     void addHistory(History history);
 
     History update(History history);

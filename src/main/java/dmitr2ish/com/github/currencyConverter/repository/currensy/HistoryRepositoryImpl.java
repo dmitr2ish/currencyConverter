@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -36,6 +37,32 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     @SuppressWarnings("unchecked")
     public List<History> getAllHistories() {
         return entityManager.createQuery("select c from History c").getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<History> getAllHistoriesByDate(Date date) {
+        return entityManager.createQuery("select c from History c where c.date = :date")
+                .setParameter("date", date)
+                .getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<History> getAllHistoriesByDateAndCurrencies(Date date,
+                                                            String initialNameCurrency,
+                                                            String targetNameCurrency) {
+        String sqlQuery
+                = "select c from History c where " +
+                "c.date = :date and " +
+                "c.initialNameCurrency = :iname and " +
+                "c.targetNameCurrency = :tname";
+
+        return entityManager.createQuery(sqlQuery)
+                .setParameter("date", date)
+                .setParameter("iname", initialNameCurrency)
+                .setParameter("tname", targetNameCurrency)
+                .getResultList();
     }
 
     @Override
