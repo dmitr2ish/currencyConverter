@@ -58,8 +58,9 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
 
     @Override
     public boolean isExist(Currency curr) {
-        Long count = (Long) entityManager.createQuery("select count(c) from Currency c").getSingleResult();
-        return count.equals(0L);
+        return !entityManager.createQuery("select count(c) from Currency c")
+                .getSingleResult()
+                .equals(0L);
     }
 
     @Override
