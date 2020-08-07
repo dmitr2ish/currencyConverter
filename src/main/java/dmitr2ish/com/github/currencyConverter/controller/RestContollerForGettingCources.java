@@ -24,7 +24,7 @@ import java.util.*;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api")
 public class RestContollerForGettingCources {
 
     final private RestTemplate restTemplate;
@@ -43,8 +43,8 @@ public class RestContollerForGettingCources {
     }
 
     //getting actual course and currencies on today
-    @GetMapping(value = "/rest/currencies")
-    public void getTodayCourse() throws ParseException, IOException {
+    @GetMapping(value = "/getcourseontoday")
+    public void getCourseOnToday() throws ParseException, IOException {
         RestTemplate restTemplate = new RestTemplate();
 
         //getting actual course whiteout currencies
