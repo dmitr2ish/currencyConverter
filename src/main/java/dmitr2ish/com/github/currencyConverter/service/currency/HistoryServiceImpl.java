@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -42,12 +42,12 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<History> getAllHistoriesByDate(Date date) {
+    public List<History> getAllHistoriesByDate(LocalDate date) {
         return historyRepository.getAllHistoriesByDate(date);
     }
 
     @Override
-    public List<History> getAllHistoriesByDateAndCurrencies(Date date, String initialNameCurrency, String targetNameCurrency) {
+    public List<History> getAllHistoriesByDateAndCurrencies(LocalDate date, String initialNameCurrency, String targetNameCurrency) {
         return historyRepository.getAllHistoriesByDateAndCurrencies(date, initialNameCurrency, targetNameCurrency);
     }
 

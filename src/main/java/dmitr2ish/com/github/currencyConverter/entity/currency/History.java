@@ -2,7 +2,7 @@ package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "cc_history")
@@ -14,9 +14,13 @@ public class History {
     private String targetNameCurrency;
     private BigDecimal initialValueCurrency;
     private BigDecimal targetValueCurrency;
-    private Date date;
+    private LocalDate date;
 
-    public History(String initialNameCurrency, String targetNameCurrency, BigDecimal initialValueCurrency, BigDecimal targetValueCurrency, Date date) {
+    public History(String initialNameCurrency,
+                   String targetNameCurrency,
+                   BigDecimal initialValueCurrency,
+                   BigDecimal targetValueCurrency,
+                   LocalDate date) {
         this.initialNameCurrency = initialNameCurrency;
         this.targetNameCurrency = targetNameCurrency;
         this.initialValueCurrency = initialValueCurrency;
@@ -67,11 +71,11 @@ public class History {
         this.targetValueCurrency = targetValueCurrency;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

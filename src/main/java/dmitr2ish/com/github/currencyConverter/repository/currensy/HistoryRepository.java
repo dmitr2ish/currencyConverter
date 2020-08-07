@@ -1,10 +1,8 @@
 package dmitr2ish.com.github.currencyConverter.repository.currensy;
 
-import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 import dmitr2ish.com.github.currencyConverter.entity.currency.History;
 
-import javax.lang.model.element.Name;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface HistoryRepository {
@@ -16,9 +14,9 @@ public interface HistoryRepository {
 
     List<History> getAllHistories();
 
-    List<History> getAllHistoriesByDate(Date date);
+    List<History> getAllHistoriesByDate(LocalDate date);
 
-    List<History> getAllHistoriesByDateAndCurrencies(Date date, String initialNameCurrency, String targetNameCurrency);
+    List<History> getAllHistoriesByDateAndCurrencies(LocalDate date, String initialNameCurrency, String targetNameCurrency);
 
     boolean isExist(History history);
 

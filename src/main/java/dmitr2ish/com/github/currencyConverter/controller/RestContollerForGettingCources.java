@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -48,8 +50,9 @@ public class RestContollerForGettingCources {
         //getting actual course whiteout currencies
         CourseXml courseXml = restTemplate.getForObject(URL, CourseXml.class);
 
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date currentCourseDate = format.parse(courseXml.getDate());
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d.MM.yyyy");
+        //convert String to LocalDate
+        LocalDate currentCourseDate = LocalDate.parse(courseXml.getDate(),format);
 
         //if db isn't exist this course we get currencies, else ignoring the request
         if (!courseService.isExistByDate(currentCourseDate)) {

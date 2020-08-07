@@ -1,7 +1,7 @@
 package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -14,12 +14,12 @@ public class Course {
 
     private String name;
 
-    private Date date;
+    private LocalDate date;
 
     @OneToMany
     private List<Currency> currencyList;
 
-    public Course(String name, Date date, List<Currency> currencyList) {
+    public Course(String name, LocalDate date, List<Currency> currencyList) {
         this.name = name;
         this.date = date;
         this.currencyList = currencyList;
@@ -44,11 +44,11 @@ public class Course {
         this.name = name;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

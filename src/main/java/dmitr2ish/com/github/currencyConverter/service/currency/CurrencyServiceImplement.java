@@ -12,9 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.lang.model.element.Name;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -51,7 +50,7 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
     }
 
     @Override
-    public List<Currency> getAllCurrenciesByCourseDate(Date date) {
+    public List<Currency> getAllCurrenciesByCourseDate(LocalDate date) {
         return currencyRepository.getAllCurrenciesByCourseDate(date);
     }
 
@@ -76,7 +75,7 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
     }
 
     @Override
-    public List<Course> getByDate(Date date) {
+    public List<Course> getByDate(LocalDate date) {
         return courseRepository.getByDate(date);
     }
 
@@ -91,19 +90,20 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
     }
 
     @Override
-    public boolean isExistByDate(Date date) {
+    public boolean isExistByDate(LocalDate date) {
         return courseRepository.isExistByDate(date);
     }
 
     @Override
-    public void saveCourse(CourseXml curseXml, List<CurrencyXml> currencyXmlList) throws ParseException {
-        Course curse = new Course();    //currencyList null; id null; name null; date null;
+    public void saveCourse(CourseXml courseXml, List<CurrencyXml> currencyXmlList) {
+        Course course = new Course();    //currencyList null; id null; name null; date null;
 
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        curse.setDate(format.parse(curseXml.getDate()));    //currencyList null; id null; name null; date have;
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("d.MM.yyyy");
+        //convert String to LocalDate and set to course
+        course.setDate(LocalDate.parse(courseXml.getDate(), format));    //currencyList null; id null; name null; date have;
 
-        curse.setName(curseXml.getName());  //currencyList null; id null; name have; date have;
-        courseRepository.add(curse);    //currencyList null; id have; name have; date have;
+        course.setName(courseXml.getName());  //currencyList null; id null; name have; date have;
+        courseRepository.add(course);    //currencyList null; id have; name have; date have;
 
         for (CurrencyXml currencyXml : currencyXmlList) {
             Currency currency = new Currency();
@@ -113,9 +113,9 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
             currency.setNumCode(currencyXml.getNumCode());  //get numCode
             currency.setNominal(currencyXml.getNominal());  //get nominal
             currency.setValue(currencyXml.getValue());  //get value
-            currency.setCourse(courseRepository.getByName(curse.getName()));    //get course, where currenscyList null
+            currency.setCourse(courseRepository.getByName(course.getName()));    //get course, where currenscyList null
             currencyRepository.addCurrency(currency);
         }
-        curse.setCurrencyList(currencyRepository.getAllCurrenciesByCourseDate(curse.getDate()));
+        course.setCurrencyList(currencyRepository.getAllCurrenciesByCourseDate(course.getDate()));
     }
 }

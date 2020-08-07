@@ -3,7 +3,7 @@ package dmitr2ish.com.github.currencyConverter.service.currency;
 import dmitr2ish.com.github.currencyConverter.entity.currency.Currency;
 
 import javax.lang.model.element.Name;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface CurrencyService {
@@ -15,7 +15,7 @@ public interface CurrencyService {
 
     List<Currency> getAllCurrencies();
 
-    List<Currency> getAllCurrenciesByCourseDate(Date date);
+    List<Currency> getAllCurrenciesByCourseDate(LocalDate date);
 
     List<Currency> getAllCurrenciesByCourseName(Name name);
 

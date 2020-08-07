@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.lang.model.element.Name;
 import javax.persistence.EntityManager;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -42,7 +42,7 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Currency> getAllCurrenciesByCourseDate(Date date) {
+    public List<Currency> getAllCurrenciesByCourseDate(LocalDate date) {
         return entityManager.createQuery("select  c from Currency  c where c.course.date = :date")
                 .setParameter("date", date)
                 .getResultList();

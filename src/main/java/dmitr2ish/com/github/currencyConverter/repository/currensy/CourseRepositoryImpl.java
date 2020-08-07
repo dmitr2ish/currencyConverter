@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -25,7 +25,7 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public boolean isExistByDate(Date date) {
+    public boolean isExistByDate(LocalDate date) {
         return !entityManager.createQuery("select count(c) from Course c where c.date = :date")
                 .setParameter("date", date)
                 .getSingleResult()
@@ -41,7 +41,7 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Course> getByDate(Date date) {
+    public List<Course> getByDate(LocalDate date) {
         return entityManager.createQuery("select c from Course c where c.date = :date")
                 .setParameter("date", date)
                 .getResultList();
