@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
@@ -24,13 +23,14 @@
         }
     </style>
 
-    <title>Login page</title>
+    <title>Currency converter Login page</title>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3 mr-auto ml-auto my-5">
             <form th:action="@{/authenticateTheUser}" method="post">
+                <h2>Converter currency</h2>
                 <h3 class="mt-5 font-weight-bold">Please sign in</h3>
                 <!-- name -->
                 <div class="form-group">
