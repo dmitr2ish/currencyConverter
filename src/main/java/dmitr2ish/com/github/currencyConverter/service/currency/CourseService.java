@@ -8,11 +8,15 @@ import java.util.List;
 public interface CourseService {
     Course getByName(String name);
 
-    List<Course> getByDate(LocalDate date);
+    Course getByDate(LocalDate date);
+
+    Course getCourseById(Long id);
 
     List<Course> getAll();
 
     void add(Course curse);
 
     boolean isExistByDate(LocalDate date);
+
+    boolean isEmpty();
 }

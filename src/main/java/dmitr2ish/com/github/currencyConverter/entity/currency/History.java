@@ -10,19 +10,19 @@ public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String initialNameCurrency;
-    private String targetNameCurrency;
+    private String initialCharCodeCurrency;
+    private String targetCharCodeCurrency;
     private BigDecimal initialValueCurrency;
     private BigDecimal targetValueCurrency;
     private LocalDate date;
 
-    public History(String initialNameCurrency,
-                   String targetNameCurrency,
+    public History(String initialCharCodeCurrency,
+                   String targetCharCodeCurrency,
                    BigDecimal initialValueCurrency,
                    BigDecimal targetValueCurrency,
                    LocalDate date) {
-        this.initialNameCurrency = initialNameCurrency;
-        this.targetNameCurrency = targetNameCurrency;
+        this.initialCharCodeCurrency = initialCharCodeCurrency;
+        this.targetCharCodeCurrency = targetCharCodeCurrency;
         this.initialValueCurrency = initialValueCurrency;
         this.targetValueCurrency = targetValueCurrency;
         this.date = date;
@@ -39,20 +39,20 @@ public class History {
         this.id = id;
     }
 
-    public String getInitialNameCurrency() {
-        return initialNameCurrency;
+    public String getInitialCharCodeCurrency() {
+        return initialCharCodeCurrency;
     }
 
-    public void setInitialNameCurrency(String initialNameCurrency) {
-        this.initialNameCurrency = initialNameCurrency;
+    public void setInitialCharCodeCurrency(String initialNameCurrency) {
+        this.initialCharCodeCurrency = initialNameCurrency;
     }
 
-    public String getTargetNameCurrency() {
-        return targetNameCurrency;
+    public String getTargetCharCodeCurrency() {
+        return targetCharCodeCurrency;
     }
 
-    public void setTargetNameCurrency(String targetNameCurrency) {
-        this.targetNameCurrency = targetNameCurrency;
+    public void setTargetCharCodeCurrency(String targetNameCurrency) {
+        this.targetCharCodeCurrency = targetNameCurrency;
     }
 
     public BigDecimal getInitialValueCurrency() {

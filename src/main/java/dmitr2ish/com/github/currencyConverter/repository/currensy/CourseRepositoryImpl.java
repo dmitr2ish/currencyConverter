@@ -33,6 +33,13 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
+    public boolean isEmpty() {
+        return entityManager.createQuery("select count(c) from Course c")
+                .getSingleResult()
+                .equals(0L);
+    }
+
+    @Override
     public Course getByName(String name) {
         return (Course) entityManager.createQuery("select c from Course c where c.name = :name")
                 .setParameter("name", name)
@@ -41,10 +48,17 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Course> getByDate(LocalDate date) {
-        return entityManager.createQuery("select c from Course c where c.date = :date")
+    public Course getByDate(LocalDate date) {
+        return (Course) entityManager.createQuery("select c from Course c where c.date = :date")
                 .setParameter("date", date)
-                .getResultList();
+                .getSingleResult();
+    }
+
+    @Override
+    public Course getById(Long id) {
+        return (Course) entityManager.createQuery("select c from Course c where c.id = :id")
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override

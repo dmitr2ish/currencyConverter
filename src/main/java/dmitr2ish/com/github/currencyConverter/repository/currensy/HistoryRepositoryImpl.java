@@ -55,8 +55,8 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         String sqlQuery
                 = "select c from History c where " +
                 "c.date = :date and " +
-                "c.initialNameCurrency = :iname and " +
-                "c.targetNameCurrency = :tname";
+                "c.initialCharCodeCurrency = :iname and " +
+                "c.targetCharCodeCurrency = :tname";
 
         return entityManager.createQuery(sqlQuery)
                 .setParameter("date", date)
