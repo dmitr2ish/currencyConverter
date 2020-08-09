@@ -53,6 +53,7 @@ public class MvcSecurity extends WebSecurityConfigurerAdapter {
                 .passwordParameter("j_password")
                 .permitAll();
 
+        //logic for logout
         http.logout()
                 .permitAll()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -61,11 +62,12 @@ public class MvcSecurity extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
 
         http
+                //free url
                 .authorizeRequests()
                 .antMatchers("/login").anonymous()
                 .antMatchers("/bdinit").anonymous()//back door init method
 
-                //защищенные url
+                //protected url
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin/*").access("hasAuthority('ADMIN')")

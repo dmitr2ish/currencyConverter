@@ -7,5 +7,5 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface CourseXmlService {
-    void saveCourse(CourseXml curseXml, List<CurrencyXml> currensyXmlList) throws ParseException;
+    void saveCourse(CourseXml curseXml, List<CurrencyXml> currensyXmlList);
 }

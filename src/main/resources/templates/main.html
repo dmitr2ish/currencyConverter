@@ -96,6 +96,14 @@
         var idInit = document.getElementById("checkbox1").options[selind].value;
 
         console.log("element 1: " + idInit)
+        $.ajax({
+            url: '/api/currency/' + idInit,
+            type: 'GET',
+            success: function (currency) {
+                console.log(currency.id);
+                $('#targetValueCurrency').val(currency.value);
+            }
+        })
 
         //получаем 2 элемент
         console.log("element 2: " + idTarget);

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     @SuppressWarnings("unchecked")
     public Course getByDate(LocalDate date) {
-        return (Course) entityManager.createQuery("select c from Course c where c.date = :date")
-                .setParameter("date", date)
-                .getSingleResult();
+            return (Course) entityManager.createQuery("select c from Course c where c.date = :date")
+                    .setParameter("date", date)
+                    .getSingleResult();
     }
 
     @Override
