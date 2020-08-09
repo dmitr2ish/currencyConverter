@@ -9,64 +9,51 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
-    <title>Converter main page</title>
+    <title>Main Page</title>
 </head>
 <body>
+
 <div class="container-fluid">
     <h6 th:object="${authUser}">Your login: <span th:text="*{login}"></span></h6>
-    <h6 th:object="${currentCourse}">Current course
-        <span th:text="*{name}"></span> on date:
-        <span th:text="*{date}"></span>
-    </h6>
+    <h6>Current date: <span th:text="${todayDate}"></span></h6>
+
+    <div>
+        <h1>Тут будет заголовок проекта</h1>
+        <p>Тут будет его описание "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+            beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+            fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
+            quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+            eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
+            quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+            Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel
+            illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+        </p>
+    </div>
+
 
     <div class="col-md-3 mr-auto ml-auto my-5">
-        <div class="row justify-content-center">
-            <h2>Converter</h2>
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
+            <button type="button"
+                    class="btn btn-secondary"
+                    onclick="location.href='/history'">Show my converting history
+            </button>
+
+            <button type="button"
+                    class="btn btn-primary"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    title="If you need to use the conversion history"
+                    onclick="location.href='/convertingWithButton'">Converting with button
+            </button>
+            <button type="button"
+                    class="btn btn-primary"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    title="If you need to convert something quickly"
+                    onclick="location.href='/convertingOnline'">Converting online
+            </button>
         </div>
-
-        <form>
-            <div class="form-row justify-content-between">
-                <div class="form-group col-6">
-                    <select id="checkbox1" class="form-control"
-                            onchange="selectChangedAndConvertOneElement(this.value)">
-                        <option selected>Choose...</option>
-                        <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
-                                th:text="${currency.charCode+' ('+currency.name+')'}">
-                        </option>
-                    </select>
-                </div>
-
-                <div class="form-group col-6">
-                    <select id="checkbox2" class="form-control"
-                            onchange="selectChangedAndConvertTwoElement(this.value)">
-                        <option selected>Choose...</option>
-                        <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
-                                th:text="${currency.charCode+' ('+currency.name+')'}">
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-row justify-content-between">
-                <div class="form-group col-6">
-                    <input type="number"
-                           min="1" step="any"
-                           class="form-control"
-                           id="initialValueCurrency"
-                           placeholder="initial value of currency"
-                           oninput="inputChangedAndConvertOneElement(this.value)">
-                </div>
-                <div class="form-group col-6">
-                    <input type="number"
-                           min="1"
-                           step="any"
-                           class="form-control"
-                           id="targetValueCurrency"
-                           placeholder="target value of currency"
-                           oninput="inputChangedAndConvertTwoElement(this.value)">
-                </div>
-            </div>
-        </form>
     </div>
 </div>
 
@@ -80,7 +67,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-<script src="js/convertingScripts.js"></script>
-
 </body>
 </html>

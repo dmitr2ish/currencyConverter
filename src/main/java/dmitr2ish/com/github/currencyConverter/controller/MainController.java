@@ -16,6 +16,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -67,11 +68,56 @@ public class MainController {
         return "login";
     }
 
-    //getting view and if we need actual course doing request to market
+    @GetMapping(value = "/convertingOnline")
+    public ModelAndView convertingOnlinePage(Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView("convertOnline");
+        modelAndView.addObject("authUser", authentication.getPrincipal());
+        modelAndView.addObject("currentCourse", getActualCourse());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/convertingWithButton")
+    public ModelAndView convertingWithButtonPage(Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView("convertButton");
+        modelAndView.addObject("authUser", authentication.getPrincipal());
+        modelAndView.addObject("currentCourse", getActualCourse());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/history")
+    public ModelAndView historyPage(Authentication authentication) {
+        ModelAndView modelAndView = new ModelAndView("history");
+        modelAndView.addObject("authUser", authentication.getPrincipal());
+        modelAndView.addObject("currentCourse", getActualCourse());
+        return modelAndView;
+    }
+
+    //getting view
     @GetMapping(value = "/")
     public ModelAndView mainPage(Authentication authentication) {
-        RestTemplate restTemplate = new RestTemplate();
+        ModelAndView modelAndView = new ModelAndView("main")
+                .addObject("authUser", authentication.getPrincipal());
+        return modelAndView
+                .addObject("todayDate", LocalDate.now());
+    }
 
+    //simple bigDecimal convert
+    public BigDecimal bigDecimalConvert(String number) {
+        return new BigDecimal(number.replaceAll(",", "."));
+    }
+
+    //if will a some holiday
+    public static void addHoliday(LocalDate date) {
+        holidays.add(date);
+    }
+
+    //additional checking if holiday or weekand
+    public static boolean isHoliday(LocalDate date) {
+        return (weekends.contains(date.getDayOfWeek()) || holidays.contains(date));
+    }
+
+    //request to actual course
+    public Course getActualCourse() {
         //getting actual course whiteout currencies
         CourseXml courseXml = restTemplate.getForObject(URL, CourseXml.class);
 
@@ -113,26 +159,6 @@ public class MainController {
             //saving in data base
             courseXmlService.saveCourse(courseXml, currencyXmlList);
         }
-
-        Course course = courseService.getByDate(localDate);
-
-        ModelAndView mav = new ModelAndView("main")
-                .addObject("authUser", authentication.getPrincipal());
-        return mav.addObject("currentCourse", course);
-    }
-
-    //simple bigDecimal convert
-    public BigDecimal bigDecimalConvert(String number) {
-        return new BigDecimal(number.replaceAll(",", "."));
-    }
-
-    //if will a some holiday
-    public static void addHoliday(LocalDate date) {
-        holidays.add(date);
-    }
-
-    //additional checking if holiday or weekand
-    public static boolean isHoliday(LocalDate date) {
-        return (weekends.contains(date.getDayOfWeek()) || holidays.contains(date));
+        return courseService.getByDate(localDate);
     }
 }
