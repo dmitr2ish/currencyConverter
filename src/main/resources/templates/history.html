@@ -11,6 +11,40 @@
     <title>Histroy page</title>
 </head>
 <body>
+
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+            <h4 class="text-white">Currency converter</h4>
+            <div class="text-muted">
+                <p>Hello, its my currency converter. In middle you seeing three buttons.</p>
+                <p>Button 1 - Show my converting history. If you go by it, you will see your history of conversion
+                    currency.
+                    The history only by your login, you don't see alien history.</p>
+                <p>Button 2 - Converter with button. This converter allows converting by button "Push me", after you
+                    will see
+                    your history in right. This converter can convert only left-to-right and only by button. </p>
+                <p>Button 3 - Converting online. This converter allows converting online left-to-right, right-to-left.
+                </p>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-outline-light" href="/" role="button">Main</a>
+            </div>
+            <div class="col">
+                <a class="btn btn-outline-light" href="/logout" role="button">Exit</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
 <div class="container-fluid">
     <h6 th:object="${authUser}">Your login:
         <span th:text="*{login}"
