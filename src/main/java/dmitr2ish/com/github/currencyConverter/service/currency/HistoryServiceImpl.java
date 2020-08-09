@@ -37,18 +37,22 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public List<History> getAllHistories() {
-        return historyRepository.getAllHistories();
+    public List<History> getAllHistories(String login) {
+        return historyRepository.getAllHistories(login);
     }
 
     @Override
-    public List<History> getAllHistoriesByDate(LocalDate date) {
-        return historyRepository.getAllHistoriesByDate(date);
+    public List<History> getAllHistoriesByDate(LocalDate date, String login) {
+        return historyRepository.getAllHistoriesByDate(date, login);
     }
 
     @Override
-    public List<History> getAllHistoriesByDateAndCurrencies(LocalDate date, String initialNameCurrency, String targetNameCurrency) {
-        return historyRepository.getAllHistoriesByDateAndCurrencies(date, initialNameCurrency, targetNameCurrency);
+    public List<History> getAllHistoriesByDateAndCurrencies(LocalDate date,
+                                                            String initialNameCurrency,
+                                                            String targetNameCurrency,
+                                                            String login) {
+        return historyRepository
+                .getAllHistoriesByDateAndCurrencies(date, initialNameCurrency, targetNameCurrency, login);
     }
 
     @Override
@@ -59,5 +63,10 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public void delete(History history) {
         historyRepository.delete(history);
+    }
+
+    @Override
+    public void deleteAll(String login) {
+        historyRepository.deleteAll(login);
     }
 }

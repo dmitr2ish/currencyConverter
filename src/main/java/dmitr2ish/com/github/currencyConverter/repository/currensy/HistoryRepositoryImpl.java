@@ -35,15 +35,18 @@ public class HistoryRepositoryImpl implements HistoryRepository {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<History> getAllHistories() {
-        return entityManager.createQuery("select c from History c").getResultList();
+    public List<History> getAllHistories(String login) {
+        return entityManager.createQuery("select c from History c where c.login = :login")
+                .setParameter("login", login)
+                .getResultList();
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<History> getAllHistoriesByDate(LocalDate date) {
-        return entityManager.createQuery("select c from History c where c.date = :date")
+    public List<History> getAllHistoriesByDate(LocalDate date, String login) {
+        return entityManager.createQuery("select c from History c where c.date = :date and c.login = :login")
                 .setParameter("date", date)
+                .setParameter("login", login)
                 .getResultList();
     }
 
@@ -51,17 +54,20 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     @SuppressWarnings("unchecked")
     public List<History> getAllHistoriesByDateAndCurrencies(LocalDate date,
                                                             String initialNameCurrency,
-                                                            String targetNameCurrency) {
+                                                            String targetNameCurrency,
+                                                            String login) {
         String sqlQuery
                 = "select c from History c where " +
                 "c.date = :date and " +
                 "c.initialCharCodeCurrency = :iname and " +
-                "c.targetCharCodeCurrency = :tname";
+                "c.targetCharCodeCurrency = :tname and " +
+                "c.login = :login";
 
         return entityManager.createQuery(sqlQuery)
                 .setParameter("date", date)
                 .setParameter("iname", initialNameCurrency)
                 .setParameter("tname", targetNameCurrency)
+                .setParameter("login", login)
                 .getResultList();
     }
 
@@ -75,5 +81,12 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     @Override
     public void delete(History history) {
         entityManager.remove(history);
+    }
+
+    @Override
+    public void deleteAll(String login) {
+        entityManager.createQuery("delete from History c where c.login = :login")
+                .setParameter("login", login)
+                .executeUpdate();
     }
 }

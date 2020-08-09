@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -13,60 +12,117 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h6 th:object="${authUser}">Your login: <span th:text="*{login}"></span></h6>
+    <h6 th:object="${authUser}">Your login: <span th:text="*{login}" id="login"></span></h6>
     <h6 th:object="${currentCourse}">Current course
         <span th:text="*{name}"></span> on date:
-        <span th:text="*{date}"></span>
+        <span th:text="*{date}" id="date"></span>
     </h6>
 
-    <div class="col-md-3 mr-auto ml-auto my-5">
-        <div class="row justify-content-center">
-            <h2>Converter</h2>
+    <button type="button"
+            class="btn btn-secondary"
+            onclick="location.href='/history'">Show my converting history
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="If you need to convert something quickly"
+            onclick="location.href='/convertingOnline'">Converting online
+    </button>
+
+    <div class="row justify-content-center">
+
+        <!--Converter container-->
+        <div class="col-md-3 my-5">
+            <div class="row justify-content-center">
+                <h2>Converter</h2>
+            </div>
+
+            <form>
+                <div class="form-row justify-content-between">
+                    <div class="form-group col-6">
+                        <select id="checkbox1" class="form-control">
+                            <option selected>Choose...</option>
+                            <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
+                                    th:text="${currency.charCode+' ('+currency.name+')'}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <select id="checkbox2" class="form-control">
+                            <option selected>Choose...</option>
+                            <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
+                                    th:text="${currency.charCode+' ('+currency.name+')'}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row justify-content-between">
+                    <div class="form-group col-6">
+                        <input type="number"
+                               min="1" step="any"
+                               class="form-control"
+                               id="initialValueCurrency"
+                               placeholder="initial value of currency">
+                    </div>
+                    <div class="form-group col-6">
+                        <input type="number"
+                               min="1"
+                               step="any"
+                               class="form-control"
+                               id="targetValueCurrency"
+                               placeholder="target value of currency">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <button type="submit" class="btn btn-primary" id="convert" style="margin: 0 8px 0 140px">Push me
+                    </button>
+                    <!-- Large modal button-->
+                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                            data-target=".bd-example-modal-lg">Show history
+                    </button>
+                </div>
+            </form>
         </div>
 
-        <form>
-            <div class="form-row justify-content-between">
-                <div class="form-group col-6">
-                    <select id="checkbox1" class="form-control">
-                        <option selected>Choose...</option>
-                        <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
-                                th:text="${currency.charCode+' ('+currency.name+')'}">
-                        </option>
-                    </select>
-                </div>
+        <!-- Large modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
 
-                <div class="form-group col-6">
-                    <select id="checkbox2" class="form-control">
-                        <option selected>Choose...</option>
-                        <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
-                                th:text="${currency.charCode+' ('+currency.name+')'}">
-                        </option>
-                    </select>
+                    <!--history container-->
+                    <div class="col mr-auto ml-auto mt-4">
+                        <div class="row justify-content-end">
+                            <div class="col-md-6">
+                                <h2>History</h2>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-danger" id="deleteAllHistroy">Delete your history
+                                </button>
+                            </div>
+                        </div>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Initial currency</th>
+                                <th scope="col">Target currency</th>
+                                <th scope="col">Initial sum</th>
+                                <th scope="col">Received sum</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                            </thead>
+                            <tbody id="history">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <div class="form-row justify-content-between">
-                <div class="form-group col-6">
-                    <input type="number"
-                           min="1" step="any"
-                           class="form-control"
-                           id="initialValueCurrency"
-                           placeholder="initial value of currency">
-                </div>
-                <div class="form-group col-6">
-                    <input type="number"
-                           min="1"
-                           step="any"
-                           class="form-control"
-                           id="targetValueCurrency"
-                           placeholder="target value of currency">
-                </div>
-            </div>
-
-            <div class="form-row justify-content-center">
-                <button type="submit" class="btn btn-primary" id="convert">Push me</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
@@ -81,6 +137,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 <script src="js/convertingScriptsWithButton.js"></script>
+<script src="js/historyScripts.js"></script>
 
 </body>
 </html>

@@ -15,17 +15,20 @@ public class History {
     private BigDecimal initialValueCurrency;
     private BigDecimal targetValueCurrency;
     private LocalDate date;
+    private String login;
 
     public History(String initialCharCodeCurrency,
                    String targetCharCodeCurrency,
                    BigDecimal initialValueCurrency,
                    BigDecimal targetValueCurrency,
-                   LocalDate date) {
+                   LocalDate date,
+                   String login) {
         this.initialCharCodeCurrency = initialCharCodeCurrency;
         this.targetCharCodeCurrency = targetCharCodeCurrency;
         this.initialValueCurrency = initialValueCurrency;
         this.targetValueCurrency = targetValueCurrency;
         this.date = date;
+        this.login = login;
     }
 
     public History() {
@@ -77,5 +80,13 @@ public class History {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

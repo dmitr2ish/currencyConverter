@@ -12,13 +12,18 @@ public interface HistoryService {
 
     History getById(Long id);
 
-    List<History> getAllHistories();
+    List<History> getAllHistories(String login);
 
-    List<History> getAllHistoriesByDate(LocalDate date);
+    List<History> getAllHistoriesByDate(LocalDate date, String login);
 
-    List<History> getAllHistoriesByDateAndCurrencies(LocalDate date, String initialNameCurrency, String targetNameCurrency);
+    List<History> getAllHistoriesByDateAndCurrencies(LocalDate date,
+                                                     String initialNameCurrency,
+                                                     String targetNameCurrency,
+                                                     String login);
 
     boolean isExist(History history);
 
     void delete(History history);
+
+    void deleteAll(String login);
 }

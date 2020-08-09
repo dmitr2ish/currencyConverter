@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -13,19 +12,57 @@
 </head>
 <body>
 <div class="container-fluid">
-    <h6 th:object="${authUser}">Your login: <span th:text="*{login}"></span></h6>
-    <h6 th:object="${currentCourse}">Current course
-        <span th:text="*{name}"></span> on date:
-        <span th:text="*{date}"></span>
+    <h6 th:object="${authUser}">Your login:
+        <span th:text="*{login}"
+              id="login">
+        </span>
     </h6>
+    <h6 th:object="${currentCourse}">Current course
+        <span th:text="*{name}">
+        </span> on date:
+        <span th:text="*{date}"
+              id="date">
+        </span>
+    </h6>
+    <button type="button"
+            class="btn btn-primary"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="If you need to use the conversion history"
+            onclick="location.href='/convertingWithButton'">Converting with button
+    </button>
+    <button type="button"
+            class="btn btn-primary"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="If you need to convert something quickly"
+            onclick="location.href='/convertingOnline'">Converting online
+    </button>
 
-    <div class="col-md-3 mr-auto ml-auto my-5">
-        <div class="row justify-content-center">
-            <h2>History</h2>
+    <!--history container-->
+    <div class="col-md-5 mr-auto ml-auto my-5">
+        <div class="row justify-content-end">
+            <div class="col-md-6">
+                <h2>History</h2>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-danger" id="deleteAllHistroy">Delete your history</button>
+            </div>
         </div>
 
-        <form>
-        </form>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Initial currency</th>
+                <th scope="col">Target currency</th>
+                <th scope="col">Initial sum</th>
+                <th scope="col">Received sum</th>
+                <th scope="col">Date</th>
+            </tr>
+            </thead>
+            <tbody id="history">
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -39,6 +76,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-
+<script src="js/historyScripts.js"></script>
 </body>
 </html>
