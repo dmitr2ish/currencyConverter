@@ -5,13 +5,10 @@ import dmitr2ish.com.github.currencyConverter.service.currency.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/currency")
 public class RestControllerCurrency {
 
     final private CurrencyService currencyService;
@@ -21,11 +18,10 @@ public class RestControllerCurrency {
         this.currencyService = currencyService;
     }
 
-    @GetMapping(name = "/currency/{id}")
-    public ResponseEntity<Currency> getCurrencyById(@PathVariable(name = "id") String id) {
-        final Currency currency = currencyService.getById(id);
-
-        return currency != null
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Currency> getCurrency(@PathVariable(value = "id") Long id) {
+        Currency currency = currencyService.getById(id);
+        return (currency != null)
                 ? new ResponseEntity<>(currency, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

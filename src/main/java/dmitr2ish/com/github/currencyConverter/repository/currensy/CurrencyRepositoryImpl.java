@@ -30,11 +30,8 @@ public class CurrencyRepositoryImpl implements CurrencyRepository {
     }
 
     @Override
-    public Currency getById(String id) {
-Currency currency =(Currency) entityManager.createQuery("select c from Currency c where c.id = :id")
-        .setParameter("id", id)
-        .getSingleResult();
-        return currency ;
+    public Currency getById(Long id) {
+        return entityManager.find(Currency.class, id) ;
     }
 
     @Override

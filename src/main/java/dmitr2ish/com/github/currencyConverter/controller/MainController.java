@@ -121,7 +121,7 @@ public class MainController {
         return mav.addObject("currentCourse", course);
     }
 
-    //simple bigDecimal converet
+    //simple bigDecimal convert
     public BigDecimal bigDecimalConvert(String number) {
         return new BigDecimal(number.replaceAll(",", "."));
     }

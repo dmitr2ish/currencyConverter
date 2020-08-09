@@ -1,10 +1,9 @@
 package dmitr2ish.com.github.currencyConverter.entity.currency;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -12,7 +11,10 @@ import java.math.BigDecimal;
 public class Currency {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String idInXml;
 
     private Long numCode;
 
@@ -25,13 +27,14 @@ public class Currency {
     private BigDecimal value;
 
     @ManyToOne
+    @JsonIgnore
     private Course course;
 
     public Currency() {
     }
 
-    public Currency(String id, Long numCode, String charCode, Integer nominal, String name, BigDecimal value, Course course) {
-        this.id = id;
+    public Currency(String idInXml, Long numCode, String charCode, Integer nominal, String name, BigDecimal value, Course course) {
+        this.idInXml = idInXml;
         this.numCode = numCode;
         this.charCode = charCode;
         this.nominal = nominal;
@@ -40,12 +43,20 @@ public class Currency {
         this.course = course;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIdInXml() {
+        return idInXml;
+    }
+
+    public void setIdInXml(String idInXml) {
+        this.idInXml = idInXml;
     }
 
     public Long getNumCode() {

@@ -41,7 +41,7 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
     }
 
     @Override
-    public Currency getById(String id) {
+    public Currency getById(Long id) {
         return currencyRepository.getById(id);
     }
 
@@ -118,7 +118,7 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
 
         //added manually RUB currency
         Currency currencyRub = new Currency();
-        currencyRub.setId("R00000");    //set id
+        currencyRub.setIdInXml("R00000");    //set id
         currencyRub.setCharCode("RUB "); //set charCode
         currencyRub.setName("Российский рубль");    //set name
         currencyRub.setNumCode(643L);  //set numCode
@@ -129,7 +129,7 @@ public class CurrencyServiceImplement implements CurrencyService, CourseService,
 
         for (CurrencyXml currencyXml : currencyXmlList) {
             Currency currency = new Currency();
-            currency.setId(currencyXml.getId());    //get id
+            currency.setIdInXml(currencyXml.getId());    //get id
             currency.setCharCode(currencyXml.getCharCode()); //get charCode
             currency.setName(currencyXml.getName());    //get name
             currency.setNumCode(currencyXml.getNumCode());  //get numCode

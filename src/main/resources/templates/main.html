@@ -27,7 +27,8 @@
         <form>
             <div class="form-row justify-content-between">
                 <div class="form-group col-6">
-                    <select id="checkbox1" class="form-control">
+                    <select id="checkbox1" class="form-control"
+                            onchange="selectChangedAndConvertOneElement(this.value)">
                         <option selected>Choose...</option>
                         <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
                                 th:text="${currency.charCode+' ('+currency.name+')'}">
@@ -36,7 +37,8 @@
                 </div>
 
                 <div class="form-group col-6">
-                    <select id="checkbox2" class="form-control" onchange="selectChangedAndConvert(this.value)">
+                    <select id="checkbox2" class="form-control"
+                            onchange="selectChangedAndConvertTwoElement(this.value)">
                         <option selected>Choose...</option>
                         <option th:each="currency: ${currentCourse.currencyList}" th:value="${currency.id}"
                                 th:text="${currency.charCode+' ('+currency.name+')'}">
@@ -51,7 +53,8 @@
                            min="1" step="any"
                            class="form-control"
                            id="initialValueCurrency"
-                           placeholder="initial value of currency">
+                           placeholder="initial value of currency"
+                           oninput="inputChangedAndConvertOneElement(this.value)">
                 </div>
                 <div class="form-group col-6">
                     <input type="number"
@@ -59,13 +62,15 @@
                            step="any"
                            class="form-control"
                            id="targetValueCurrency"
-                           placeholder="target value of currency">
+                           placeholder="target value of currency"
+                           oninput="inputChangedAndConvertTwoElement(this.value)">
                 </div>
             </div>
 
             <div class="form-row justify-content-center">
                 <button type="submit"
-                        class="btn btn-primary">Converting</button>
+                        class="btn btn-primary">Converting
+                </button>
             </div>
         </form>
     </div>
@@ -87,27 +92,157 @@
 
     })
 
+    function inputChangedAndConvertOneElement(sumOne) {
+        let firstValueElement = 0;
+        let secondValueElement = 0;
 
-
-
-    function selectChangedAndConvert(idTarget) {
-        //получаем 1 элемент
+        //getting second element's id
         var selind = document.getElementById("checkbox1").options.selectedIndex;
-        var idInit = document.getElementById("checkbox1").options[selind].value;
+        var idFirst = document.getElementById("checkbox1").options[selind].value;
 
-        console.log("element 1: " + idInit)
+        //getting first element
         $.ajax({
-            url: '/api/currency/' + idInit,
+            url: '/api/currency/' + idFirst,
             type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
             success: function (currency) {
-                console.log(currency.id);
-                $('#targetValueCurrency').val(currency.value);
+                firstValueElement = currency.value * currency.nominal * sumOne;
+            }
+        })
+        //getting second element's id
+        var selind = document.getElementById("checkbox2").options.selectedIndex;
+        var idSecond = document.getElementById("checkbox2").options[selind].value;
+
+        //getting second element
+        $.ajax({
+            url: '/api/currency/' + idSecond,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                secondValueElement = (1 / currency.value) * currency.nominal;
+            }
+        })
+        let result = firstValueElement * secondValueElement;
+
+        $('#targetValueCurrency').val(result.toFixed(2));
+    }
+
+    function inputChangedAndConvertTwoElement(sumTwo) {
+        let firstValueElement = 0;
+        let secondValueElement = 0;
+
+        //getting second element's id
+        var selind = document.getElementById("checkbox1").options.selectedIndex;
+        var idFirst = document.getElementById("checkbox1").options[selind].value;
+
+        //getting first element
+        $.ajax({
+            url: '/api/currency/' + idFirst,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                firstValueElement = (1 / currency.value) * currency.nominal;
             }
         })
 
-        //получаем 2 элемент
-        console.log("element 2: " + idTarget);
+        //getting second element's id
+        var selind = document.getElementById("checkbox2").options.selectedIndex;
+        var idSecond = document.getElementById("checkbox2").options[selind].value;
 
+        //getting second element
+        $.ajax({
+            url: '/api/currency/' + idSecond,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                secondValueElement = currency.value * currency.nominal * sumTwo;
+
+            }
+        })
+        let result = firstValueElement * secondValueElement;
+
+        $('#initialValueCurrency').val(result.toFixed(2));
+    }
+
+
+    function selectChangedAndConvertOneElement(idTarget) {
+        let sum = $('#initialValueCurrency').val();
+        let firstValueElement = 0;
+        let secondValueElement = 0;
+
+        //getting first element
+        $.ajax({
+            url: '/api/currency/' + idTarget,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                firstValueElement = currency.value * currency.nominal * sum;
+            }
+        })
+        //getting second element's id
+        var selind = document.getElementById("checkbox2").options.selectedIndex;
+        var id = document.getElementById("checkbox2").options[selind].value;
+
+        //getting second element
+        $.ajax({
+            url: '/api/currency/' + id,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                secondValueElement = (1 / currency.value) * currency.nominal;
+            }
+        })
+        let result = firstValueElement * secondValueElement;
+
+        $('#targetValueCurrency').val(result.toFixed(2));
+    }
+
+    function selectChangedAndConvertTwoElement(idTarget) {
+        //getting first element's id
+        var selind = document.getElementById("checkbox1").options.selectedIndex;
+        var id = document.getElementById("checkbox1").options[selind].value;
+
+        let sum = $('#initialValueCurrency').val();
+        let firstValueElement = 0;
+        let secondValueElement = 0;
+        //getting first element
+        $.ajax({
+            url: '/api/currency/' + id,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                firstValueElement = currency.value * currency.nominal * sum;
+            }
+        })
+
+        //getting second element
+        $.ajax({
+            url: '/api/currency/' + idTarget,
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            async: false,
+            success: function (currency) {
+                secondValueElement = (1 / currency.value) * currency.nominal;
+            }
+        })
+        let result = firstValueElement * secondValueElement;
+
+        $('#targetValueCurrency').val(result.toFixed(2));
     }
 
 

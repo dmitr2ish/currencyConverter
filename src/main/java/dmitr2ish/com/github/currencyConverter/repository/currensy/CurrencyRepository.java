@@ -11,7 +11,7 @@ public interface CurrencyRepository {
 
     Currency update(Currency curr);
 
-    Currency getById(String id);
+    Currency getById(Long id);
 
     List<Currency> getAllCurrencies();
 
