@@ -1,8 +1,8 @@
 # currencyConverter
 Используемые технологии:
 
-Java 11
-Maven
+Java 11  
+Maven  
 Spring boot 2.3.2.RELEASE
 PostgresSQL 12.3
 Html5\CSS(Bootstrap)\Thymeleaf\JQery\Ajax
