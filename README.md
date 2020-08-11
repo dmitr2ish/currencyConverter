@@ -16,7 +16,7 @@ Html5\CSS(Bootstrap)\Thymeleaf\JQery\Ajax
 Порт приложения: 8080  
 Порт базы данных: 5432  
 Имя пользователя: postgres  
-Пароль пользователя: postgres
+Пароль пользователя: postgres  
 Адрес сайта ЦБ откуда берутся данные: http://www.cbr.ru/scripts/XML_daily.asp
   
 Изменить настройки вы можете в файле currencyConverter\src\main\resources\application.properties  
