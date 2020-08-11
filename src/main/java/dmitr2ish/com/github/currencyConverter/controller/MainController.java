@@ -14,6 +14,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +39,9 @@ public class MainController {
     private static Collection<DayOfWeek> weekends = Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
     private static Collection<LocalDate> holidays = new HashSet<>();
 
-    final private String URL = "http://www.cbr.ru/scripts/XML_daily.asp";
     final private DateTimeFormatter format = DateTimeFormatter.ofPattern("d.MM.yyyy");
+    @Value("${site.link}")
+    private String URL;
 
     @Autowired
     public MainController(UserService userService, RoleService roleService, CourseService courseService, RestTemplate restTemplate, CourseXmlService courseXmlService) {
