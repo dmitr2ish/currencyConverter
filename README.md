@@ -7,7 +7,7 @@ Spring boot 2.3.2.RELEASE
 PostgresSQL 12.3  
 Html5\CSS(Bootstrap)\Thymeleaf\JQery\Ajax  
 
-Задача: 
+Задача:   
 Сделать конвертер валют
     
 Описание запуска приложения:  
